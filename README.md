@@ -49,11 +49,12 @@ Ubacite fajlove u `assets/img/` **tačno sa ovim imenima**. Dok slika ne postoji
 Saveti: JPG ili WebP, kvalitet ~75–80%, svaka slika ispod ~400 KB. Fotografije iz PDF-a imaju utisnut tekst, pa su potrebni originalni (čisti) fajlovi.
 Logo je trenutno napisan fontom (D | R | P ★); ako imate SVG logo, može se zameniti.
 
-## Šta još treba popuniti
+## Kontakt i društvene mreže
 
-- **Društvene mreže** – u `index.html` linkovi za Instagram, LinkedIn, YouTube i Facebook su `#` (traži `TODO`).
-- **Kontakt forma** – trenutno otvara email program posetioca sa popunjenom porukom za `office@dubairapidproperties.com`. Za direktno slanje (bez email programa) povežite formu sa Formspree / Netlify Forms / CRM-om.
-- **WhatsApp broj** – ako postoji, može se dodati plutajuće WhatsApp dugme.
+- Telefon: +971 4 529 4904 · WhatsApp: +971 56 777 0272 · office@dubairapidproperties.com
+- Instagram [@drp_dubairapidproperties](https://www.instagram.com/drp_dubairapidproperties/), [LinkedIn](https://www.linkedin.com/company/dubairapidproperties/), [Facebook](https://www.facebook.com/dubairapidproperties/)
+- Plutajuće WhatsApp dugme (dole desno) otvara chat sa unapred upisanom porukom.
+- **Kontakt forma** – „Pošalji email" otvara email program posetioca sa popunjenim upitom za `office@dubairapidproperties.com`, a „Pošalji na WhatsApp" šalje isti upit na WhatsApp. Za direktno slanje u inbox/CRM povežite formu sa Formspree / Netlify Forms / CRM-om.
 
 ## Ispravke u odnosu na PDF
 

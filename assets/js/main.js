@@ -241,21 +241,21 @@
   var form = document.getElementById('contactForm');
   var note = document.getElementById('formNote');
   if (form) {
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
+    function validate(required) {
       var ok = true;
-      ['ime', 'email'].forEach(function (name) {
+      required.forEach(function (name) {
         var input = form.elements[name];
         var valid = input.value.trim() !== '' && input.checkValidity();
         input.classList.toggle('invalid', !valid);
         if (!valid) ok = false;
       });
-      if (!ok) {
-        note.textContent = 'Molimo unesite ime i ispravnu email adresu.';
-        return;
-      }
+      if (!ok) note.textContent = required.length > 1 ? 'Molimo unesite ime i ispravnu email adresu.' : 'Molimo unesite ime.';
+      return ok;
+    }
+
+    function message() {
       var f = form.elements;
-      var body = [
+      return [
         'Ime i prezime: ' + f.ime.value,
         'Email: ' + f.email.value,
         'Telefon / WhatsApp: ' + f.telefon.value,
@@ -264,10 +264,21 @@
         '',
         f.poruka.value
       ].join('\n');
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!validate(['ime', 'email'])) return;
       window.location.href = 'mailto:office@dubairapidproperties.com' +
-        '?subject=' + encodeURIComponent('Upit za investiciju – ' + f.ime.value) +
-        '&body=' + encodeURIComponent(body);
+        '?subject=' + encodeURIComponent('Upit za investiciju – ' + form.elements.ime.value) +
+        '&body=' + encodeURIComponent(message());
       note.textContent = 'Hvala! Otvaramo vaš email program da pošaljete upit.';
+    });
+
+    document.getElementById('waSend').addEventListener('click', function () {
+      if (!validate(['ime'])) return;
+      window.open('https://wa.me/971567770272?text=' + encodeURIComponent('Zdravo, zanima me investicija u Dubaiju.\n\n' + message()), '_blank', 'noopener');
+      note.textContent = 'Hvala! Otvaramo WhatsApp da pošaljete upit.';
     });
   }
 })();
