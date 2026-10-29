@@ -37,12 +37,12 @@ Ubacite fajlove u `assets/img/` **tačno sa ovim imenima**. Dok slika ne postoji
 | `villa-pool.jpg` ✅ | Kartica „Kratkoročni najam" | Moderna vila sa bazenom | min. 1200×700 |
 | `desert-skyline.jpg` ✅ | Traka „Potpuno upravljanje" | Pustinja + skyline u zalasku | min. 1920×700 |
 | `team.jpg` ✅ | O nama (velika slika) | DRP tim ispred kancelarije | min. 1600×1200 |
-| `office-interior.jpg` | O nama (mala slika, skrivena dok slika ne postoji) | Enterijer DRP kancelarije | min. 800×800 |
-| `og-image.jpg` | Pregled linka na WhatsApp/Facebook/Viber | Logo + naslov | 1200×630 |
-| `favicon.png` | Ikonica u tabu browsera | D\|R\|P znak | 512×512 |
+| `office-interior.jpg` ✅ | O nama (mala slika) | Enterijer DRP kancelarije | min. 800×800 |
+| `og-image.jpg` ✅ | Pregled linka na WhatsApp/Facebook/Viber | Logo + naslov | 1200×630 |
+| `favicon.png` ✅ | Ikonica u tabu browsera | D\|R\|P znak | 512×512 |
 
 Saveti: JPG ili WebP, kvalitet ~75–80%, svaka slika ispod ~400 KB.
-Logo je trenutno napisan fontom (D | R | P ★); ako imate SVG logo, može se zameniti.
+Logo: `logo-dark.png` (header i podnožje) i `logo-white.png` (za tamne pozadine), napravljeni iz originalnog logotipa. Uz favicon postoji i `apple-touch-icon.png`.
 
 ## Kontakt i društvene mreže
 

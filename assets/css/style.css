@@ -110,11 +110,9 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .btn-wa:hover { background: #1fb457; border-color: #1fb457; box-shadow: 0 14px 28px -12px rgba(37, 211, 102, .6); }
 
 /* ---------- Logo ---------- */
-.logo { display: inline-flex; flex-direction: column; line-height: 1; }
-.logo-mark { font-family: var(--serif); font-size: 1.65rem; font-weight: 500; letter-spacing: .06em; position: relative; }
-.logo-mark i { font-style: normal; font-weight: 400; color: var(--muted); margin: 0 .16em; }
-.logo-mark sup { color: var(--orange); font-size: .42em; position: absolute; top: -.25em; right: -.75em; }
-.logo-sub { font-family: var(--serif); font-size: .76rem; margin-top: 5px; color: var(--body); }
+.logo { display: inline-flex; line-height: 0; }
+.logo img { height: 52px; width: auto; }
+.logo-lg img { height: 64px; }
 
 /* ---------- Header ---------- */
 .site-header {
