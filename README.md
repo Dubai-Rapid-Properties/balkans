@@ -32,12 +32,12 @@ Ubacite fajlove u `assets/img/` **tačno sa ovim imenima**. Dok slika ne postoji
 | Fajl | Gde se koristi | Šta je na slici | Veličina |
 |---|---|---|---|
 | `dubai-map-zones.jpg` | Lokacije | Mapa sa zonama – **već ubačena** | – |
-| `hero-dubai.jpg` | Hero (luk desno) | Burj Khalifa / Downtown danju | min. 1200×1500 |
-| `palm-jumeirah.jpg` | Velika pločica „Zašto Dubai" | Palm Jumeirah iz vazduha | min. 1400×1200 |
-| `villa-pool.jpg` | Kartica „Kratkoročni najam" | Moderna vila sa bazenom | min. 1200×700 |
-| `desert-skyline.jpg` | Traka „Potpuno upravljanje" | Pustinja + skyline u zalasku | min. 1920×700 |
-| `team.jpg` | O nama (velika slika) | DRP tim ispred kancelarije | min. 1600×1200 |
-| `office-interior.jpg` | O nama (mala slika) | Enterijer DRP kancelarije | min. 800×800 |
+| `hero-dubai.jpg` ✅ | Hero (luk desno) | Burj Khalifa / Downtown danju | min. 1200×1500 |
+| `palm-jumeirah.jpg` ✅ | Velika pločica „Zašto Dubai" | Palm Jumeirah iz vazduha | min. 1400×1200 |
+| `villa-pool.jpg` ✅ | Kartica „Kratkoročni najam" | Moderna vila sa bazenom | min. 1200×700 |
+| `desert-skyline.jpg` ✅ | Traka „Potpuno upravljanje" | Pustinja + skyline u zalasku | min. 1920×700 |
+| `team.jpg` ✅ | O nama (velika slika) | DRP tim ispred kancelarije | min. 1600×1200 |
+| `office-interior.jpg` | O nama (mala slika, skrivena dok slika ne postoji) | Enterijer DRP kancelarije | min. 800×800 |
 | `og-image.jpg` | Pregled linka na WhatsApp/Facebook/Viber | Logo + naslov | 1200×630 |
 | `favicon.png` | Ikonica u tabu browsera | D\|R\|P znak | 512×512 |
 
