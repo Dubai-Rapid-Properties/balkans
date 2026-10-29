@@ -142,8 +142,7 @@
     })) + '<svg viewBox="0 0 ' + W + ' ' + H + '" aria-hidden="true">' + svg + '</svg>';
   }
 
-  var dark = { grid: 'rgba(255,255,255,.14)', muted: '#b5aea4', text: '#f4f1ec' };
-  var light = { grid: 'rgba(0,0,0,.12)', muted: '#5b5650', text: '#1b1b1b' };
+  var theme = { grid: 'rgba(29,27,25,.12)', muted: '#6b645c', text: '#1d1b19' };
 
   function renderCharts() {
   var visas = document.getElementById('chartVisas');
@@ -155,9 +154,9 @@
       valueLabel: function (v) { return Math.round(v / 1000) + 'k'; },
       series: [
         { label: 'Izdate rezidentne vize', color: ORANGE, data: [110000, 120000, 125000, 130000] },
-        { label: 'Nove stambene jedinice', color: '#f4f1ec', data: [37000, 36000, 39000, 42000] }
+        { label: 'Nove stambene jedinice', color: '#3a3633', data: [37000, 36000, 39000, 42000] }
       ]
-    }, dark));
+    }, theme));
   }
 
   var growth = document.getElementById('chartGrowth');
@@ -172,7 +171,7 @@
         { label: '2024', color: ORANGE, data: [14, 16, 13, 10, 11] },
         { label: '2025', color: '#8e3410', data: [10, 12, 11, 9, 10] }
       ]
-    }, light));
+    }, theme));
   }
 
   var roi = document.getElementById('chartRoi');
@@ -182,11 +181,11 @@
       max: 45, step: 5,
       tick: function (v) { return v + '%'; },
       series: [
-        { label: 'ROI – dugoročni najam (%)', color: '#f4f1ec', data: [10.9, 10.0, 9.3, 8.7, 8.1, 7.6], labelBelow: true },
-        { label: 'ROI – kratkoročni najam (%)', color: ORANGE, dash: '10 6', data: [11.3, 10.5, 9.7, 9.0, 8.5, 7.9] },
-        { label: 'Rast kapitalne vrednosti (%)', color: '#ffb488', dash: '14 6 3 6', data: [null, 5, 12, 20, 30, 40], labelDx: -32 }
+        { label: 'ROI – dugoročni najam (%)', color: '#3a3633', data: [10.9, 10.0, 9.3, 8.7, 8.1, 7.6], labelBelow: true },
+        { label: 'ROI – kratkoročni najam (%)', color: '#e0601c', dash: '10 6', data: [11.3, 10.5, 9.7, 9.0, 8.5, 7.9] },
+        { label: 'Rast kapitalne vrednosti (%)', color: '#9b3a0c', dash: '14 6 3 6', data: [null, 5, 12, 20, 30, 40], labelDx: -40 }
       ]
-    }, dark));
+    }, theme));
   }
 
   }

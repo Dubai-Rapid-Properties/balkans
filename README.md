@@ -6,7 +6,7 @@ Landing page na srpskom (latinica) napravljen na osnovu PDF-a **„Priručnik za
 
 ```
 index.html            – sve sekcije stranice
-assets/css/style.css  – dizajn (crno + narandžasto, Playfair Display + Jost)
+assets/css/style.css  – dizajn (svetla tema: belo/krem + narandžasto, Playfair Display + Jost)
 assets/js/main.js     – meni, grafikoni (SVG), plan otplate, kontakt forma
 assets/img/           – slike (vidi listu ispod)
 ```
@@ -30,19 +30,20 @@ Grafikoni i ikonice su napravljeni u kodu (SVG), pa za njih ne trebaju slike.
 ## Potrebne slike
 
 Ubacite fajlove u `assets/img/` **tačno sa ovim imenima**. Dok slika ne postoji, na njenom mestu se vidi oznaka „Slika: ime-fajla.jpg".
+Stranica je u svetloj temi, pa najbolje izgledaju **svetle, dnevne fotografije** (plavo nebo, prirodno svetlo). Preko pozadinskih slika ide beli providni sloj da tekst ostane čitljiv.
 
-| Fajl | Gde se koristi | Sadržaj (kao u PDF-u) | Preporučena veličina |
+| Fajl | Gde se koristi | Šta treba da bude na slici | Veličina |
 |---|---|---|---|
-| `dubai-map-zones.jpg` | Lokacije | Mapa sa zonama A/B/C – **već ubačena** (izvučena iz PDF-a, str. 4) | – |
-| `hero-team.jpg` | Hero, desna polovina | Grupna fotografija DRP tima ispred kancelarije (str. 1) | 1400×1600, uspravna |
-| `palm-jumeirah-sunset.jpg` | Pozadina „Šta vam Dubai nudi" | Palm Jumeirah iz vazduha u zalasku (str. 2) | 2400×1200 |
-| `burj-khalifa-sunset.jpg` | Regulacija i sigurnost | Burj Khalifa i Downtown u zalasku, sa vodom (str. 3) | 1600×1800 |
-| `desert-skyline.jpg` | Pored grafikona viza | Pustinjske dine + skyline (str. 5) | 800×1200, uspravna |
-| `dubai-marina-sunset.jpg` | Pored grafikona rasta + ROI sekcija | Dubai Marina u zalasku, jahte (str. 6 i 8) | 800×1400, uspravna |
-| `villa-pool-night.jpg` | Pozadina „Planovi otplate" | Moderna vila / terasa sa bazenom noću (str. 7) | 2400×1400 |
-| `terrace-skyline.jpg` | Kartica „Kratkoročni najam" | Svetla terasa stana sa pogledom na grad (str. 10) | 1200×1000 |
-| `skyline-night.jpg` | Pozadina „Šta sada?" | Panorama Dubaija u sumrak, sa vodom (str. 11) | 2400×1200 |
-| `office-interior.jpg` | Pozadina kontakta | Enterijer DRP kancelarije sa stepeništem (str. 12) | 2400×1400 |
+| `dubai-map-zones.jpg` | Lokacije A/B/C | Mapa sa zonama – **već ubačena** | – |
+| `hero-team.jpg` | Hero, desna polovina | Grupna fotografija DRP tima (ispred kancelarije ili u kancelariji) | 1400×1600, uspravna |
+| `palm-jumeirah.jpg` | Pozadina „Šta vam Dubai nudi" | Palm Jumeirah iz vazduha, danju | 2400×1200 |
+| `burj-khalifa.jpg` | Regulacija i sigurnost | Burj Khalifa / Downtown danju | 1600×1800 |
+| `desert-skyline.jpg` | Pored grafikona viza | Pustinja + skyline Dubaija | 800×1200, uspravna |
+| `dubai-marina.jpg` | Pored grafikona rasta + ROI sekcija | Dubai Marina, jahte i kule | 800×1400, uspravna |
+| `villa-pool.jpg` | Pozadina „Planovi otplate" | Moderna vila / terasa sa bazenom | 2400×1400 |
+| `terrace-skyline.jpg` | Kartica „Kratkoročni najam" | Svetla terasa stana sa pogledom na grad | 1200×1000 |
+| `dubai-skyline.jpg` | Pozadina „Šta sada?" | Panorama Dubaija sa vodom | 2400×1200 |
+| `office-interior.jpg` | Pozadina kontakta | Enterijer DRP kancelarije | 2400×1400 |
 | `og-image.jpg` | Pregled linka na WhatsApp/Facebook/Viber | Logo + naslov „Investiraj sa D\|R\|P" | 1200×630 |
 | `favicon.png` | Ikonica u tabu browsera | D\|R\|P znak | 512×512 |
 
