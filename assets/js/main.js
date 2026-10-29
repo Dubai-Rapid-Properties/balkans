@@ -1,8 +1,10 @@
 (function () {
   'use strict';
 
-  var ORANGE = '#f36b21';
-  var fmt = new Intl.NumberFormat('en-US');
+  var ORANGE = '#e8641e';
+  var INK = '#2b2620';
+  var fmt = new Intl.NumberFormat('sr-Latn-RS', { maximumFractionDigits: 0 });
+  function eur(n) { return fmt.format(Math.round(n)) + ' €'; }
 
   /* ---------- Header & navigation ---------- */
   var header = document.querySelector('.site-header');
@@ -10,7 +12,7 @@
   var toggle = document.getElementById('navToggle');
 
   function onScroll() {
-    header.classList.toggle('scrolled', window.scrollY > 30);
+    header.classList.toggle('scrolled', window.scrollY > 20);
   }
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
@@ -38,7 +40,7 @@
   });
 
   /* ---------- Reveal on scroll ---------- */
-  var revealTargets = document.querySelectorAll('.card, .feature, .zone, .chart-card, .rent-card, .pay-example, .stat');
+  var revealTargets = document.querySelectorAll('.tile, .chart-card, .steps li, .rent-card, .zones-panel, .zones-map, .calc-result, .num, .results div, .phases li, .contact-form, .about-media');
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
@@ -54,7 +56,30 @@
     });
   }
 
+  /* ---------- Zone tabs ---------- */
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.zone-tab'));
+  function selectTab(tab) {
+    tabs.forEach(function (t) {
+      var on = t === tab;
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    });
+  }
+  tabs.forEach(function (tab, i) {
+    tab.addEventListener('click', function () { selectTab(tab); });
+    tab.addEventListener('keydown', function (e) {
+      var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!d) return;
+      var next = tabs[(i + d + tabs.length) % tabs.length];
+      selectTab(next);
+      next.focus();
+    });
+  });
+
   /* ---------- SVG chart helpers ---------- */
+  var theme = { grid: '#e7ddd0', muted: '#7a7268', text: '#17140f' };
+
   function el(tag, attrs, text) {
     var s = '<' + tag;
     for (var k in attrs) s += ' ' + k + '="' + attrs[k] + '"';
@@ -73,22 +98,22 @@
     var out = '';
     for (var v = 0; v <= o.max; v += o.step) {
       var y = o.y(v);
-      out += el('line', { x1: o.left, x2: o.right, y1: y, y2: y, stroke: o.grid, 'stroke-dasharray': v ? '4 6' : '0' });
-      out += el('text', { x: o.left - 12, y: y + 5, 'text-anchor': 'end', 'font-size': o.fs, fill: o.muted }, o.tick(v));
+      out += el('line', { x1: o.left, x2: o.right, y1: y, y2: y, stroke: theme.grid, 'stroke-dasharray': v ? '3 6' : '0' });
+      out += el('text', { x: o.left - 12, y: y + 5, 'text-anchor': 'end', 'font-size': o.fs, fill: theme.muted }, o.tick(v));
     }
     return out;
   }
 
   // Grouped bar chart
   function barChart(target, cfg) {
-    var narrow = target.clientWidth < 600;
-    var W = narrow ? 520 : 820, H = 420, L = 70, R = W - 10, T = 30, B = H - 44;
-    var fs = narrow ? 17 : 14;
+    var narrow = target.clientWidth < 520;
+    var W = narrow ? 480 : 640, H = 380, L = 62, R = W - 6, T = 26, B = H - 40;
+    var fs = narrow ? 16 : 13;
     var y = function (v) { return B - (v / cfg.max) * (B - T); };
     var groupW = (R - L) / cfg.labels.length;
     var n = cfg.series.length;
-    var barW = Math.min(64, (groupW * 0.72) / n);
-    var svg = axes({ max: cfg.max, step: cfg.step, y: y, left: L, right: R, grid: cfg.grid, muted: cfg.muted, tick: cfg.tick, fs: fs });
+    var barW = Math.min(46, (groupW * 0.74) / n);
+    var svg = axes({ max: cfg.max, step: cfg.step, y: y, left: L, right: R, tick: cfg.tick, fs: fs });
 
     cfg.labels.forEach(function (label, i) {
       var cx = L + groupW * i + groupW / 2;
@@ -96,10 +121,10 @@
       cfg.series.forEach(function (s, j) {
         var v = s.data[i];
         var x = start + j * barW;
-        svg += el('rect', { x: x + 1, y: y(v), width: barW - 2, height: B - y(v), fill: s.color, rx: 2 });
-        svg += el('text', { x: x + barW / 2, y: y(v) - 8, 'text-anchor': 'middle', 'font-size': n > 2 && narrow ? 13 : fs, 'font-weight': 600, fill: cfg.text }, cfg.valueLabel(v));
+        svg += el('rect', { x: x + 1.5, y: y(v), width: barW - 3, height: B - y(v), fill: s.color, rx: 4 });
+        svg += el('text', { x: x + barW / 2, y: y(v) - 7, 'text-anchor': 'middle', 'font-size': n > 2 ? fs - 2 : fs, 'font-weight': 700, fill: theme.text }, cfg.valueLabel(v));
       });
-      svg += el('text', { x: cx, y: B + 28, 'text-anchor': 'middle', 'font-size': n > 2 && narrow ? 14 : fs + 1, fill: cfg.text }, label);
+      svg += el('text', { x: cx, y: B + 26, 'text-anchor': 'middle', 'font-size': n > 2 ? fs - 1 : fs, fill: theme.muted }, label);
     });
 
     target.innerHTML = legend(cfg.series) +
@@ -108,16 +133,16 @@
 
   // Line chart
   function lineChart(target, cfg) {
-    var narrow = target.clientWidth < 600;
-    var W = narrow ? 560 : 900, H = 440, L = 60, R = W - 30, T = 30, B = H - 44;
-    var fs = narrow ? 17 : 14;
+    var narrow = target.clientWidth < 520;
+    var W = narrow ? 500 : 720, H = 400, L = 54, R = W - 24, T = 26, B = H - 40;
+    var fs = narrow ? 16 : 13;
     var y = function (v) { return B - (v / cfg.max) * (B - T); };
     var stepX = (R - L) / (cfg.labels.length - 1);
     var x = function (i) { return L + i * stepX; };
-    var svg = axes({ max: cfg.max, step: cfg.step, y: y, left: L, right: R, grid: cfg.grid, muted: cfg.muted, tick: cfg.tick, fs: fs });
+    var svg = axes({ max: cfg.max, step: cfg.step, y: y, left: L, right: R, tick: cfg.tick, fs: fs });
 
     cfg.labels.forEach(function (label, i) {
-      svg += el('text', { x: x(i), y: B + 28, 'text-anchor': 'middle', 'font-size': fs + 1, fill: cfg.text }, label);
+      svg += el('text', { x: x(i), y: B + 26, 'text-anchor': 'middle', 'font-size': fs, fill: theme.muted }, label);
     });
 
     cfg.series.forEach(function (s) {
@@ -125,14 +150,18 @@
       s.data.forEach(function (v, i) { if (v != null) pts.push([x(i), y(v), v]); });
       svg += el('polyline', {
         points: pts.map(function (p) { return p[0] + ',' + p[1]; }).join(' '),
-        fill: 'none', stroke: s.color, 'stroke-width': 3, 'stroke-dasharray': s.dash || '0',
+        fill: 'none', stroke: s.color, 'stroke-width': 2.5, 'stroke-dasharray': s.dash || '0',
         'stroke-linejoin': 'round', 'stroke-linecap': 'round'
       });
-      pts.forEach(function (p) {
-        svg += el('circle', { cx: p[0], cy: p[1], r: 5, fill: s.color });
+      pts.forEach(function (p, k) {
+        if (s.labelEnds && k > 0 && k < pts.length - 1) {
+          svg += el('circle', { cx: p[0], cy: p[1], r: 3.5, fill: '#fff', stroke: s.color, 'stroke-width': 2 });
+          return;
+        }
+        svg += el('circle', { cx: p[0], cy: p[1], r: 4.5, fill: '#fff', stroke: s.color, 'stroke-width': 2.5 });
         svg += el('text', {
-          x: p[0] + (s.labelDx || 0), y: p[1] + (s.labelDx ? 5 : s.labelBelow ? 24 : -12), 'text-anchor': 'middle',
-          'font-size': narrow ? 15 : 13, 'font-weight': 600, fill: s.color
+          x: p[0] + (s.labelDx || 0), y: p[1] + (s.labelDx ? 5 : s.labelBelow ? 22 : -11), 'text-anchor': 'middle',
+          'font-size': fs - 1, 'font-weight': 700, fill: s.color
         }, String(p[2]).replace('.', ',') + '%');
       });
     });
@@ -142,52 +171,49 @@
     })) + '<svg viewBox="0 0 ' + W + ' ' + H + '" aria-hidden="true">' + svg + '</svg>';
   }
 
-  var theme = { grid: 'rgba(29,27,25,.12)', muted: '#6b645c', text: '#1d1b19' };
-
   function renderCharts() {
-  var visas = document.getElementById('chartVisas');
-  if (visas) {
-    barChart(visas, Object.assign({
-      labels: ['2022', '2023', '2024', '2025'],
-      max: 140000, step: 20000,
-      tick: function (v) { return fmt.format(v); },
-      valueLabel: function (v) { return Math.round(v / 1000) + 'k'; },
-      series: [
-        { label: 'Izdate rezidentne vize', color: ORANGE, data: [110000, 120000, 125000, 130000] },
-        { label: 'Nove stambene jedinice', color: '#3a3633', data: [37000, 36000, 39000, 42000] }
-      ]
-    }, theme));
-  }
+    var visas = document.getElementById('chartVisas');
+    if (visas) {
+      barChart(visas, {
+        labels: ['2022', '2023', '2024', '2025'],
+        max: 140000, step: 20000,
+        tick: function (v) { return v ? v / 1000 + 'k' : '0'; },
+        valueLabel: function (v) { return Math.round(v / 1000) + 'k'; },
+        series: [
+          { label: 'Izdate rezidentne vize', color: ORANGE, data: [110000, 120000, 125000, 130000] },
+          { label: 'Nove stambene jedinice', color: INK, data: [37000, 36000, 39000, 42000] }
+        ]
+      });
+    }
 
-  var growth = document.getElementById('chartGrowth');
-  if (growth) {
-    barChart(growth, Object.assign({
-      labels: ['Palm Jumeirah', 'Dubai Marina', 'Business Bay', 'JVC', 'Dubai Hills'],
-      max: 18, step: 2,
-      tick: function (v) { return v + '%'; },
-      valueLabel: function (v) { return v + '%'; },
-      series: [
-        { label: '2023', color: '#f9b868', data: [8, 12, 10, 6, 9] },
-        { label: '2024', color: ORANGE, data: [14, 16, 13, 10, 11] },
-        { label: '2025', color: '#8e3410', data: [10, 12, 11, 9, 10] }
-      ]
-    }, theme));
-  }
+    var growth = document.getElementById('chartGrowth');
+    if (growth) {
+      barChart(growth, {
+        labels: ['Palm J.', 'Marina', 'Bus. Bay', 'JVC', 'D. Hills'],
+        max: 18, step: 3,
+        tick: function (v) { return v + '%'; },
+        valueLabel: function (v) { return v; },
+        series: [
+          { label: '2023', color: '#f2b98f', data: [8, 12, 10, 6, 9] },
+          { label: '2024', color: ORANGE, data: [14, 16, 13, 10, 11] },
+          { label: '2025', color: '#8a3a10', data: [10, 12, 11, 9, 10] }
+        ]
+      });
+    }
 
-  var roi = document.getElementById('chartRoi');
-  if (roi) {
-    lineChart(roi, Object.assign({
-      labels: ['1. god.', '2. god.', '3. god.', '4. god.', '5. god.', '6+ god.'],
-      max: 45, step: 5,
-      tick: function (v) { return v + '%'; },
-      series: [
-        { label: 'ROI – dugoročni najam (%)', color: '#3a3633', data: [10.9, 10.0, 9.3, 8.7, 8.1, 7.6], labelBelow: true },
-        { label: 'ROI – kratkoročni najam (%)', color: '#e0601c', dash: '10 6', data: [11.3, 10.5, 9.7, 9.0, 8.5, 7.9] },
-        { label: 'Rast kapitalne vrednosti (%)', color: '#9b3a0c', dash: '14 6 3 6', data: [null, 5, 12, 20, 30, 40], labelDx: -40 }
-      ]
-    }, theme));
-  }
-
+    var roi = document.getElementById('chartRoi');
+    if (roi) {
+      lineChart(roi, {
+        labels: ['1. god.', '2. god.', '3. god.', '4. god.', '5. god.', '6+'],
+        max: 45, step: 5,
+        tick: function (v) { return v + '%'; },
+        series: [
+          { label: 'ROI – dugoročni najam', color: INK, data: [10.9, 10.0, 9.3, 8.7, 8.1, 7.6], labelBelow: true, labelEnds: true },
+          { label: 'ROI – kratkoročni najam', color: ORANGE, dash: '8 5', data: [11.3, 10.5, 9.7, 9.0, 8.5, 7.9], labelEnds: true },
+          { label: 'Rast kapitalne vrednosti', color: '#8a3a10', dash: '12 5 3 5', data: [null, 5, 12, 20, 30, 40], labelDx: -40 }
+        ]
+      });
+    }
   }
   renderCharts();
   var wasNarrow = window.innerWidth < 640;
@@ -196,7 +222,51 @@
     if (isNarrow !== wasNarrow) { wasNarrow = isNarrow; renderCharts(); }
   });
 
-  /* ---------- Payment plan (example: AED 1,420,000) ---------- */
+  /* ---------- Payment calculator ---------- */
+  var price = document.getElementById('price');
+  if (price) {
+    var state = { rate: 1, yield: 8 };
+    var out = function (id) { return document.getElementById(id); };
+
+    function setChecked(group, btn) {
+      group.querySelectorAll('button').forEach(function (b) { b.setAttribute('aria-checked', String(b === btn)); });
+    }
+    document.querySelectorAll('.segmented').forEach(function (group) {
+      group.addEventListener('click', function (e) {
+        var btn = e.target.closest('button');
+        if (!btn) return;
+        setChecked(group, btn);
+        if (btn.dataset.rate) state.rate = parseFloat(btn.dataset.rate);
+        if (btn.dataset.yield) state.yield = parseFloat(btn.dataset.yield);
+        update();
+      });
+    });
+
+    function update() {
+      var p = parseFloat(price.value);
+      var fill = (p - price.min) / (price.max - price.min) * 100;
+      price.style.setProperty('--fill', fill + '%');
+      out('priceOut').textContent = eur(p);
+
+      var post = p * state.rate / 100;
+      var months = Math.round(30 / state.rate);
+      var rent = p * state.yield / 100 / 12;
+      var cover = rent / post * 100;
+
+      out('rDown').textContent = eur(p * 0.24);
+      out('rBuild').textContent = eur(p * 0.01);
+      out('rPost').textContent = eur(post);
+      out('rPostNote').textContent = '30% kroz ' + months + ' meseci';
+      out('rRent').textContent = eur(rent);
+      out('rRentNote').textContent = String(state.yield).replace('.', ',') + '% godišnje, bruto procena';
+      out('rCover').textContent = cover >= 100 ? '100%+' : Math.round(cover) + '%';
+      out('rCoverBar').style.width = Math.min(100, cover) + '%';
+    }
+    price.addEventListener('input', update);
+    update();
+  }
+
+  /* ---------- Payment plan example (AED 1,420,000) ---------- */
   var PRICE = 1420000;
   var AED_PER_USD = 3.65;
   // % of price per monthly installment, starting 05 Sep 2025
@@ -217,17 +287,17 @@
       var date = pad(d.getDate()) + '.' + pad(d.getMonth() + 1) + '.' + d.getFullYear() + '.';
       var a = aed(pct);
       html += '<tr' + (pct > 1 ? ' class="hl"' : '') + '><td>' + (i + 1) + '</td><td>' + date + '</td><td>' + pct +
-        '%</td><td>AED ' + fmt.format(a) + '</td><td>USD ' + fmt.format(usd(a)) + '</td></tr>';
+        '%</td><td>' + fmt.format(a) + '</td><td>' + fmt.format(usd(a)) + '</td></tr>';
     });
-    var post = aed(30);
-    html += '<tr class="hl"><td colspan="2">Nakon primopredaje – 1% mesečno, 30 meseci od jula 2029.</td><td>30%</td><td>AED ' +
-      fmt.format(post) + '</td><td>USD ' + fmt.format(usd(post)) + '</td></tr>';
+    var postAed = aed(30);
+    html += '<tr class="hl"><td colspan="2">Nakon ključeva – 1% mesečno, 30 meseci od jula 2029.</td><td>30%</td><td>' +
+      fmt.format(postAed) + '</td><td>' + fmt.format(usd(postAed)) + '</td></tr>';
     rowsEl.innerHTML = html;
 
     var summary = [
       ['Učešće (09/2025 i 11/2025)', 20],
       ['Tokom izgradnje', 50],
-      ['Nakon primopredaje', 30]
+      ['Nakon ključeva', 30]
     ];
     summaryEl.innerHTML = summary.map(function (r) {
       var a = aed(r[1]);
@@ -236,11 +306,11 @@
       '<tr class="total"><td>Ukupno</td><td>100%</td><td>' + fmt.format(PRICE) + '</td><td>' + fmt.format(usd(PRICE)) + '</td></tr>';
   }
 
-  /* ---------- Contact form → email ---------- */
+  /* ---------- Contact form → email or WhatsApp ---------- */
   var form = document.getElementById('contactForm');
   var note = document.getElementById('formNote');
   if (form) {
-    function validate(required) {
+    var validate = function (required) {
       var ok = true;
       required.forEach(function (name) {
         var input = form.elements[name];
@@ -250,9 +320,9 @@
       });
       if (!ok) note.textContent = required.length > 1 ? 'Molimo unesite ime i ispravnu email adresu.' : 'Molimo unesite ime.';
       return ok;
-    }
+    };
 
-    function message() {
+    var message = function () {
       var f = form.elements;
       return [
         'Ime i prezime: ' + f.ime.value,
@@ -263,7 +333,7 @@
         '',
         f.poruka.value
       ].join('\n');
-    }
+    };
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
