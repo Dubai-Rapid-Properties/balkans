@@ -277,9 +277,13 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .zone-a .zone-tag { color: var(--zone-a); }
 .zone-b .zone-tag { color: var(--zone-b); }
 .zone-c .zone-tag { color: var(--zone-c); }
-.zone-price { display: flex; align-items: baseline; gap: 12px; padding: 16px 0; margin-bottom: 18px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-.zone-price span { font-size: .85rem; color: var(--muted); }
-.zone-price b { font-family: var(--serif); font-size: 2.2rem; font-weight: 500; line-height: 1; }
+.zone-prices { display: grid; grid-template-columns: repeat(3, 1fr); margin: 0 0 18px; padding: 16px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.zone-prices div { padding: 0 12px; border-left: 1px solid var(--line); }
+.zone-prices div:first-child { padding-left: 0; border-left: 0; }
+.zone-prices dt { font-size: .75rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.zone-prices dd { margin: 0; font-size: .8rem; color: var(--muted); }
+.zone-prices b { display: block; font-family: var(--serif); font-size: 1.55rem; font-weight: 500; line-height: 1.1; color: var(--ink); white-space: nowrap; }
+.area-chips li { font-size: .78rem !important; padding: .32em .75em !important; }
 .zone-card > p { color: var(--body); }
 .area-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 20px; }
 .area-chips li { font-size: .82rem; font-weight: 500; padding: .4em .9em; border: 1px solid var(--line); border-radius: 999px; color: var(--body); }
@@ -572,6 +576,9 @@ th { font-weight: 700; color: var(--muted); font-size: .72rem; text-transform: u
   .tile-stat { text-align: left; }
   .zones-panel { padding: 22px 18px; }
   .zone-tab { font-size: .84rem; padding: .65em .5em; }
+  .zone-prices div { padding: 0 8px; }
+  .zone-prices dt { font-size: .66rem; letter-spacing: .02em; }
+  .zone-prices b { font-size: 1.2rem; }
   .steps { grid-template-columns: 1fr; }
   .results b { font-size: 2rem; }
   .calc-rows strong { font-size: 1.3rem; }
