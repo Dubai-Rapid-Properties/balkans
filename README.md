@@ -31,7 +31,7 @@ Ubacite fajlove u `assets/img/` **tačno sa ovim imenima**. Dok slika ne postoji
 
 | Fajl | Gde se koristi | Šta je na slici | Veličina |
 |---|---|---|---|
-| `dubai-zones.svg` ✅ | Lokacije (ugrađena u stranicu kao interaktivna mapa) | Vektorska mapa zona A, B i C | – |
+| `dubai-zones-map.jpg` ✅ | Lokacije (sa interaktivnim isticanjem zona) | Satelitska mapa zona A, B i C (Tara) | 1980×1727 |
 | `hero-dubai.jpg` ✅ | Hero (luk desno) | Burj Khalifa / Downtown danju | min. 1200×1500 |
 | `palm-jumeirah.jpg` ✅ | Velika pločica „Zašto Dubai" | Palm Jumeirah iz vazduha | min. 1400×1200 |
 | `villa-pool.jpg` ✅ | Kartica „Kratkoročni najam" | Moderna vila sa bazenom | min. 1200×700 |

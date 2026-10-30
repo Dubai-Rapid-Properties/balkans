@@ -248,14 +248,15 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .zones { display: grid; grid-template-columns: 1.6fr 1fr; gap: 28px; align-items: center; }
 .zones > *, .calc > *, .contact-panel > *, .charts > *, .roi > *, .about > * { min-width: 0; }
 .zones-map { margin: 0; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); background: var(--surface); }
-.zmap { display: block; width: 100%; height: auto; }
-.zmap .z-zone path, .zmap .z-zone ellipse { fill-opacity: .2; stroke-opacity: .45; stroke-width: 2; stroke-linejoin: round; cursor: pointer; transition: fill-opacity .3s, stroke-opacity .3s; }
-.zmap .z-zone .z-palm-a { fill: none; stroke-opacity: .3; stroke-width: 9; cursor: pointer; transition: stroke-opacity .3s; }
-.zmap .z-zone:hover path, .zmap .z-zone:hover ellipse { fill-opacity: .4; }
-.zmap .z-zone.is-active path, .zmap .z-zone.is-active ellipse { fill-opacity: .55; stroke-opacity: 1; stroke-width: 2.5; }
-.zmap .z-zone.is-active .z-palm-a { stroke-opacity: .75; }
-.zmap .z-labels { opacity: 0; transition: opacity .3s; pointer-events: none; }
-.zmap .z-labels.is-active { opacity: 1; }
+.zones-map { position: relative; }
+.zmap-img { display: block; width: 100%; height: auto; }
+.zmap-overlay { position: absolute; inset: 0; width: 100%; height: 100%; }
+.map-zoom { position: absolute; right: 14px; bottom: 14px; display: inline-flex; align-items: center; gap: 6px; padding: .5em 1em; border-radius: 999px; background: rgba(255, 255, 255, .92); color: var(--ink); font-size: .8rem; font-weight: 700; box-shadow: var(--shadow-sm); transition: background .2s; }
+.map-zoom:hover { background: #fff; }
+.map-zoom svg { color: var(--orange); }
+.zmap .z-zone path, .zmap .z-zone ellipse { fill: #fff; fill-opacity: 0; stroke: #fff; stroke-opacity: 0; stroke-width: 3; stroke-linejoin: round; vector-effect: non-scaling-stroke; cursor: pointer; transition: fill-opacity .3s, stroke-opacity .3s; }
+.zmap .z-zone:hover path, .zmap .z-zone:hover ellipse { fill-opacity: .12; stroke-opacity: .7; }
+.zmap .z-zone.is-active path, .zmap .z-zone.is-active ellipse { stroke-opacity: 1; filter: drop-shadow(0 0 4px rgba(0, 0, 0, .45)); }
 .zones-panel { background: var(--surface); border-radius: var(--radius-lg); padding: 34px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; }
 .zone-tabs { display: flex; gap: 6px; background: var(--sand); padding: 6px; border-radius: 999px; margin-bottom: 30px; }
 .zone-tab {
@@ -571,7 +572,6 @@ th { font-weight: 700; color: var(--muted); font-size: .72rem; text-transform: u
   .tile-stat { text-align: left; }
   .zones-panel { padding: 22px 18px; }
   .zone-tab { font-size: .84rem; padding: .65em .5em; }
-  .zmap .z-labels, .zmap .z-static { display: none; }
   .steps { grid-template-columns: 1fr; }
   .results b { font-size: 2rem; }
   .calc-rows strong { font-size: 1.3rem; }
