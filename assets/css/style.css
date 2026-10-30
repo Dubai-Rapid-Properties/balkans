@@ -245,10 +245,17 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 }
 
 /* ---------- Zones ---------- */
-.zones { display: grid; grid-template-columns: 1.15fr 1fr; gap: 40px; align-items: center; }
+.zones { display: grid; grid-template-columns: 1.6fr 1fr; gap: 28px; align-items: center; }
 .zones > *, .calc > *, .contact-panel > *, .charts > *, .roi > *, .about > * { min-width: 0; }
 .zones-map { margin: 0; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); background: var(--surface); }
-.zones-map img { width: 100%; height: auto; }
+.zmap { display: block; width: 100%; height: auto; }
+.zmap .z-zone path, .zmap .z-zone ellipse { fill-opacity: .2; stroke-opacity: .45; stroke-width: 2; stroke-linejoin: round; cursor: pointer; transition: fill-opacity .3s, stroke-opacity .3s; }
+.zmap .z-zone .z-palm-a { fill: none; stroke-opacity: .3; stroke-width: 9; cursor: pointer; transition: stroke-opacity .3s; }
+.zmap .z-zone:hover path, .zmap .z-zone:hover ellipse { fill-opacity: .4; }
+.zmap .z-zone.is-active path, .zmap .z-zone.is-active ellipse { fill-opacity: .55; stroke-opacity: 1; stroke-width: 2.5; }
+.zmap .z-zone.is-active .z-palm-a { stroke-opacity: .75; }
+.zmap .z-labels { opacity: 0; transition: opacity .3s; pointer-events: none; }
+.zmap .z-labels.is-active { opacity: 1; }
 .zones-panel { background: var(--surface); border-radius: var(--radius-lg); padding: 34px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; }
 .zone-tabs { display: flex; gap: 6px; background: var(--sand); padding: 6px; border-radius: 999px; margin-bottom: 30px; }
 .zone-tab {
@@ -526,9 +533,10 @@ th { font-weight: 700; color: var(--muted); font-size: .72rem; text-transform: u
     padding: 8px 16px 22px;
     box-shadow: var(--shadow);
     transform: translateY(-130%);
-    transition: transform .3s;
+    visibility: hidden;
+    transition: transform .3s, visibility .3s;
   }
-  .main-nav.open { transform: none; }
+  .main-nav.open { transform: none; visibility: visible; }
   .main-nav a:not(.btn) { padding: 14px 0; border-bottom: 1px solid var(--line); color: var(--ink); }
   .main-nav .btn { margin-top: 16px; }
   .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
@@ -563,6 +571,7 @@ th { font-weight: 700; color: var(--muted); font-size: .72rem; text-transform: u
   .tile-stat { text-align: left; }
   .zones-panel { padding: 22px 18px; }
   .zone-tab { font-size: .84rem; padding: .65em .5em; }
+  .zmap .z-labels, .zmap .z-static { display: none; }
   .steps { grid-template-columns: 1fr; }
   .results b { font-size: 2rem; }
   .calc-rows strong { font-size: 1.3rem; }

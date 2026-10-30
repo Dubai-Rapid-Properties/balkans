@@ -65,7 +65,15 @@
       t.tabIndex = on ? 0 : -1;
       document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
     });
+    document.querySelectorAll('.zmap [data-zone]').forEach(function (g) {
+      g.classList.toggle('is-active', g.getAttribute('data-zone') === tab.dataset.zone);
+    });
   }
+  document.querySelectorAll('.zmap .z-zone').forEach(function (g) {
+    g.addEventListener('click', function () {
+      tabs.forEach(function (t) { if (t.dataset.zone === g.getAttribute('data-zone')) selectTab(t); });
+    });
+  });
   tabs.forEach(function (tab, i) {
     tab.addEventListener('click', function () { selectTab(tab); });
     tab.addEventListener('keydown', function (e) {
@@ -76,6 +84,7 @@
       next.focus();
     });
   });
+  if (tabs.length) selectTab(tabs[0]);
 
   /* ---------- SVG chart helpers ---------- */
   var theme = { grid: '#e7ddd0', muted: '#7a7268', text: '#17140f' };
